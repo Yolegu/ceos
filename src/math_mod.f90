@@ -1,4 +1,5 @@
 module math_mod
+    use iso_fortran_env
     use constants_mod
     implicit none
 
@@ -159,6 +160,22 @@ contains
         real(8) :: cbrt
 
         cbrt = sign(abs(x)**(1.d0 / 3.d0), x)
+
+    end function
+
+    function linspace(x_min, x_max, n_points) result(x_arr)
+
+        real(8), intent(in) :: x_min
+        real(8), intent(in) :: x_max
+        integer, intent(in) :: n_points
+        real(8) :: x_arr(n_points)
+        real(8) :: x_step
+        integer :: i
+
+        x_step = (x_max - x_min) / float(n_points - 1)
+        do i = 1, n_points
+            x_arr(i) = x_min + (i - 1) * x_step
+        end do
 
     end function
 

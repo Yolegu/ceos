@@ -1,0 +1,10 @@
+! Cubic equation of state: 0 = Van der Waals | 1 = Redlich-Kwong | 2 = Peng-Robinson
+2
+! Critical temperature (/K)
+160.6
+! Critical pressure (/bar)
+46.1
+! Acentric factor
+0.01
+! Alpha function: 0 = One | 1 = Soave
+0
