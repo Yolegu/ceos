@@ -7,23 +7,25 @@ module pure_mod
     private
 
     type, public :: pure_type
+        private
+        real(8), public :: tc
+        real(8), public :: pc
+        real(8), public :: acen
         real(8) :: r1 !! ceos universal constant
         real(8) :: r2
-        real(8) :: tc
-        real(8) :: pc
-        real(8) :: acen
         real(8) :: ac
         real(8) :: bc
         real(8) :: zc
         real(8) :: vc
-        procedure(alpha_int), pointer :: alpha, dalpha_dtr, d2alpha_dtr2
+        procedure(alpha_int), pointer, private :: alpha, dalpha_dtr, d2alpha_dtr2
         real(8) :: m_soave
     contains
-        procedure :: init
+        private
+        procedure, public :: init
+        procedure, public :: show_isotherm
         procedure :: a, da_dt, d2a_dt2
         procedure :: p, dp_dt, dp_dv
         procedure :: solve_eos
-        procedure :: show_isotherm
         procedure :: m_soave_rk, m_soave_pr
     end type
 
@@ -39,6 +41,13 @@ module pure_mod
 contains
 
     subroutine init(self, eos_id, tc, pc, acen, alpha_id)
+
+        !! Apply the critical specifications to estimate the CEoS universal parameters \(\eta_c\), \(\Omega_a\), \(\Omega_b\) and \(z_c\)
+        !! and the pure compound parameters \(a_c\), \(b_c\) and \(v_c\)
+        !! $$\begin{cases}
+        !! \eta_c = \frac{1}{\left[\left(1-r_1\right)\left(1-r_2\right)^2\right]^{1/3} + \left[\left(1-r_2\right)\left(1-r_1\right)^2\right]^{1/3} + 1} \\
+        !! \Omega_a =\frac{\left(1-\eta_c r_1\right)\left(1-\eta_c r_2\right)\left[2-\eta_c \left(r_1 + r_2\right)\right]}{\left(1-\eta_c\right)\left[3-\eta_c \left(1+r_1+r_2\right)\right]^2}
+        !! \end{cases}$$
 
         class(pure_type) :: self
         integer, intent(in) :: eos_id
@@ -105,6 +114,8 @@ contains
     end subroutine
 
     function p(self, t, v)
+        !! Calculate the pressure in Pascal using the generalized cubic equation of state expression
+        !! $$P = \frac{RT}{v-b} - \frac{a\left(T\right)}{(v-r_1 b)(v-r_2 b)}$$
 
         class(pure_type) :: self
         real(8), intent(in) :: t
