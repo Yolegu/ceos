@@ -1,4 +1,5 @@
 program ceos
+    use iso_fortran_env
     use pure_mod
     use math_mod
     use gnuplot_mod
@@ -7,12 +8,12 @@ program ceos
     type(pure_type) :: pure
     integer :: eos_id, alpha_id
     real(8) :: tc, pc, acen
-    real(8) :: v(3)
+    real(8) :: v(3), psat
     integer :: n
 
     call read_options(eos_id, tc, pc, acen, alpha_id)
     call pure%init(eos_id, tc, pc, acen, alpha_id)
-    call pure%show_isotherm([120.d0, 130.d0, 140.d0])
+    call pure%show_psat()
 
 end program
 

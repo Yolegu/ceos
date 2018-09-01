@@ -134,7 +134,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>78.6% of total for derived types.</p>Including implementation: 164 statements, 92.1% of total for derived types.">22 statements</a>
+	  title="<p>82.4% of total for derived types.</p>Including implementation: 261 statements, 94.9% of total for derived types.">28 statements</a>
      </li> 
      
      
@@ -206,6 +206,12 @@
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-init%7E2">init</a>
       
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-show_isotherm">show_isotherm</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-show_psat">show_psat</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-psat">psat</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-solve_eos">solve_eos</a>
       
     </div>
   </div>
@@ -285,6 +291,12 @@
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-init%7E2">init</a>
       
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-show_isotherm">show_isotherm</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-show_psat">show_psat</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-psat">psat</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-solve_eos">solve_eos</a>
       
     </div>
   </div>
@@ -567,6 +579,276 @@ private subroutine show_isotherm(self, t)
   
   <td></td><td>::</td>
   <td><strong>t</strong>(:)</td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-show_psat"></span><h3>procedure, public :: <strong>show_psat</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine show_psat(self)
+    
+    
+	 
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/pure_type.html'>pure_type</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-psat"></span><h3>procedure, public :: <strong>psat</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function psat(self, t)
+    
+    
+	 
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/pure_type.html'>pure_type</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=8),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>t</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=8)
+  </small></h4>
+  
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-solve_eos"></span><h3>procedure, public :: <strong>solve_eos</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private subroutine solve_eos(self, t, p, v, n)
+    
+    
+	 
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/pure_type.html'>pure_type</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=8),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>t</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=8),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>p</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=8),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>v</strong>(3)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>n</strong></td><td></td>
   
 </tr>
 

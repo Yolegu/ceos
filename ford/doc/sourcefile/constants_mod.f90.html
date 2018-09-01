@@ -134,7 +134,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 0.9% of total for source files.">4 statements</a>
+	  title=" 1.1% of total for source files.">6 statements</a>
      </li> 
      
      
@@ -278,11 +278,13 @@
     <section>
       <h2><span class="anchor" id="src"></span>Source Code</h2>
     <div class="hl"><pre><span></span><a name="ln-1"></a><span class="k">module </span><span class="n">constants_mod</span>
-<a name="ln-2"></a>
-<a name="ln-3"></a>    <span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">rgp</span> <span class="o">=</span> <span class="mf">8.314417</span>
-<a name="ln-4"></a>    <span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">4.d0</span> <span class="o">*</span> <span class="nb">atan</span><span class="p">(</span><span class="mf">1.d0</span><span class="p">)</span>
-<a name="ln-5"></a>
-<a name="ln-6"></a><span class="k">end module</span>
+<a name="ln-2"></a>    <span class="k">use </span><span class="n">iso_fortran_env</span>
+<a name="ln-3"></a>    <span class="k">implicit none</span>
+<a name="ln-4"></a>
+<a name="ln-5"></a><span class="k">    </span><span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">rgp</span> <span class="o">=</span> <span class="mf">8.314417</span>
+<a name="ln-6"></a>    <span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">4.d0</span> <span class="o">*</span> <span class="nb">atan</span><span class="p">(</span><span class="mf">1.d0</span><span class="p">)</span>
+<a name="ln-7"></a>
+<a name="ln-8"></a><span class="k">end module</span>
 </pre></div>
 
     </section>

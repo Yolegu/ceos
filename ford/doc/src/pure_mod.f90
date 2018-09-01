@@ -1,5 +1,5 @@
 module pure_mod
-
+    use iso_fortran_env
     use constants_mod
     use math_mod
     use gnuplot_mod
@@ -19,19 +19,26 @@ module pure_mod
         real(8) :: vc
         procedure(alpha_int), pointer, private :: alpha, dalpha_dtr, d2alpha_dtr2
         real(8) :: m_soave
+        logical :: r1_neq_r2
     contains
         private
         procedure, public :: init
         procedure, public :: show_isotherm
+        procedure, public :: show_psat
         procedure :: a, da_dt, d2a_dt2
         procedure :: p, dp_dt, dp_dv
-        procedure :: solve_eos
+        procedure, public :: psat
+        procedure :: z
+        procedure :: a_ec
+        procedure :: ln_f, ln_phi
+        procedure, public :: solve_eos
         procedure :: m_soave_rk, m_soave_pr
     end type
 
     abstract interface
         function alpha_int(self, tr)
             import pure_type
+            import iso_fortran_env
             class(pure_type) :: self
             real(8), intent(in) :: tr
             real(8) :: alpha_int
@@ -59,12 +66,15 @@ contains
         if (eos_id == 0) then
             r1 = 0.d0
             r2 = 0.d0
+            self%r1_neq_r2 = .false.
         elseif (eos_id == 1) then
             r1 = -1.d0
             r2 = 0.d0
+            self%r1_neq_r2 = .true.
         elseif (eos_id == 2) then
             r1 = -1.d0 - sqrt(2.d0)
             r2 = -1.d0 + sqrt(2.d0)
+            self%r1_neq_r2 = .true.
         end if
 
         self%r1 = r1
@@ -73,14 +83,16 @@ contains
         self%pc = pc
         self%acen = acen
 
-        etac = 1.d0 / (((1.d0 - r1) * (1.d0 - r2))**(1.d0/3.d0) &
-        & + ((1.d0 - r2) * (1.d0 - r1))**(1.d0/3.d0) + 1.d0)
+        etac = 1.d0 / (((1.d0 - r1) * (1.d0 - r2)**2)**(1.d0/3.d0) &
+        & + ((1.d0 - r2) * (1.d0 - r1)**2)**(1.d0/3.d0) + 1.d0)
 
         omegaa = (1.d0 - etac * r1) * (1.d0 - etac * r2) * (2.d0 - etac * (r1 + r2)) / &
         & ((1.d0 - etac) * (3.d0 - etac * (1.d0 + r1 + r2))**2)
+
         self%ac = omegaa * (rgp * tc)**2 / pc
 
         omegab = etac / (3.d0 - etac * (1.d0 + r1 + r2))
+
         self%bc = omegab * rgp * tc / pc
 
         self%vc = self%bc / etac
@@ -118,6 +130,16 @@ contains
         real(8) :: p
 
         p = rgp * t / (v - self%bc) - self%a(t) / ((v - self%r1 * self%bc) * (v - self%r2 * self%bc))
+
+    end function
+
+    function z(self, t, v)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: t, v
+        real(8) :: z
+
+        z = self%p(t,v) * v / (rgp * t)
 
     end function
 
@@ -251,6 +273,58 @@ contains
 
     end function
 
+    function a_ec(self, t, v)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: t, v
+        real(8) :: a_ec
+
+        if (self%r1_neq_r2) then
+            a_ec = rgp * t * log(v / (v - self%bc)) &
+            & + self%a(t) / (self%bc * (self%r1 - self%r2)) &
+            & * log((v - self%bc * self%r1) / (v - self%bc * self%r2))
+        else
+            a_ec = rgp * t * log(v / (v - self%bc)) - self%a(t) / (v - self%r1)
+        end if
+
+    end function
+
+    function ln_phi(self, t, v)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: t, v
+        real(8) :: ln_phi
+
+        if (self%r1_neq_r2) then
+            ln_phi = self%p(t, v) * v / (rgp * t) - 1.d0 &
+            & - log(self%p(t, v) * (v - self%bc) / (rgp * t)) &
+            & + self%a(t) / (rgp * t * self%bc * (self%r1 - self%r2)) &
+            & * log((v - self%r1 * self%bc)/(v - self%r2 * self%bc))
+        else
+            ln_phi = self%p(t, v) * v / (rgp * t) - 1.d0 - log(self%p(t, v) * (v - self%bc) / (rgp * t)) &
+            & - self%a(t) / (rgp * t * v)
+        end if
+
+    end function
+
+
+    function ln_f(self, t, v)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: t, v
+        real(8) :: ln_f
+
+        if (self%r1_neq_r2) then
+            ln_f = self%p(t, v) * v / (rgp * t) - 1.d0 &
+            & - log((v - self%bc) / (rgp * t)) &
+            & + self%a(t) / (rgp * t * self%bc * (self%r1 - self%r2)) &
+            & * log((v - self%r1 * self%bc)/(v - self%r2 * self%bc))
+        else
+            ln_f = self%p(t, v) * v / (rgp * t) - 1.d0 - log((v - self%bc) / (rgp * t)) - self%a(t) / (rgp * t * v)
+        end if
+
+    end function
+
     subroutine solve_eos(self, t, p, v, n)
 
         class(pure_type) :: self
@@ -273,12 +347,14 @@ contains
         d = -self%bc * (self%r1 * self%r2 * self%bc**2 &
             & + self%r1 * self%r2 * self%bc * rgp * t / p + self%a(t) / p)
 
-        coeff(1) = d
-        coeff(2) = c
-        coeff(3) = b
-        coeff(4) = a
+        coeff(1) = a
+        coeff(2) = b
+        coeff(3) = c
+        coeff(4) = d
 
         call solve_cubic_polynomial(coeff, v, n)
+
+        v = 1.d0 / v
 
     end subroutine
 
@@ -289,11 +365,15 @@ contains
         integer, parameter :: n_points = 1000
 
         real(8), intent(in) :: t(:)
-        real(8) :: p_arr(n_points), v_arr(n_points)
+        real(8) :: p_arr(n_points), v_arr(n_points), v_liq(n_points), v_int(n_points), v_gas(n_points)
         integer :: i, j
         type(serie_type), allocatable :: serie(:)
+        integer :: n
+        real(8) :: v(3)
 
         allocate(serie(size(t)))
+
+        ! Calculation of the isotherm by changing the molar volume at fixed temperature and pressure
 
         do j = 1, size(t)
 
@@ -316,6 +396,75 @@ contains
         end do
 
         call plot(serie, "v / [cm^3.mol^{-1}]", "p / bar")
+
+    end subroutine
+
+    function psat(self, t)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: t
+        real(8) :: psat
+        real(8) :: psat_old
+        integer :: k
+        real(8) :: v(3), v_liq, v_gas
+        real(8) :: psi
+        integer :: n
+
+        k = 1
+        do
+            psat = self%p(t, (1.1d0**k) * self%vc)
+            if (psat > 0.d0) then
+                exit
+            else
+                k = k + 1
+            end if
+        end do
+
+        do
+            call self%solve_eos(t, psat, v, n)
+            if (n /= 3) then
+                stop 'Less than three volumes found in the psat calculation procedure!'
+            end if
+
+            v_liq = v(1)
+            v_gas = v(3)
+            psi = self%ln_f(t, v_gas) - self%ln_f(t, v_liq)
+
+            psat_old = psat
+
+            psat = psat_old - rgp * t * psi / (v_gas - v_liq)
+
+            if (psat < 0.d0) then
+                psat = psat_old * exp(-rgp * t / psat_old * psi / (v_gas - v_liq))
+            end if
+
+            if (abs(psi) < 1.d-10 .and. abs(psat_old - psat) / psat < 1.d-10) then
+                exit
+            end if
+
+        end do
+
+    end function
+
+    subroutine show_psat(self)
+
+        class(pure_type) :: self
+
+        integer, parameter :: n_points = 1000
+
+        real(8) :: p_arr(n_points), t_arr(n_points)
+        integer :: i, j
+        type(serie_type) :: serie
+
+        t_arr = linspace(0.40d0 * self%tc, 0.999d0 * self%tc, n_points)
+
+        do i = 1, n_points
+            p_arr(i) = self%psat(t_arr(i))
+        end do
+
+        call serie%init(t_arr, p_arr * 1.d-5)
+
+        call plot([serie], "T / K", "p / bar")
 
     end subroutine
 
