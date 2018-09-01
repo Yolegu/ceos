@@ -13,7 +13,8 @@ program ceos
     call read_options(eos_id, tc, pc, acen, alpha_id)
     call pure%init(eos_id, tc, pc, acen, alpha_id)
 
-    call pure%show_isotherm(140.d0)
+    call pure%solve_eos(140.d0, 0.5d0 * pure%pc, v, n)
+    call pure%show_isotherm([120.d0, 130.d0, 140.d0])
 
 end program
 

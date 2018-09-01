@@ -5,23 +5,51 @@ module gnuplot_mod
 
     character(20), parameter :: instruction_file = "instructions.gnu"
 
+    type, public :: serie_type
+        real(8), allocatable :: x(:)
+        real(8), allocatable :: y(:)
+    contains
+        procedure :: init => init_serie
+    end type
+
     public :: plot
 
 contains
 
-    subroutine plot(x, y)
+    subroutine init_serie(self, x, y)
 
-        real(8), intent(in) :: x(:), y(:)
-        integer :: i
+        class(serie_type) :: self
+        real(8) :: x(:), y(:)
+
+        allocate(self%x(size(x)))
+        allocate(self%y(size(y)))
+
+        self%x = x
+        self%y = y
+
+    end subroutine
+
+    subroutine plot(serie, xlabel, ylabel)
+
+        type(serie_type), intent(in) :: serie(:)
+        character(*) :: xlabel, ylabel
+        integer :: i, j
 
         open(20, file = 'data.gnu')
 
-        do i = 1, size(x)
-            write(20,*)x(i), y(i)
+        do j = 1, size(serie)
+            do i = 1, size(serie(j)%x)
+                write(20,*)serie(j)%x(i), serie(j)%y(i)
+            end do
+            write(20,*)
+            write(20,*)
         end do
 
         call write_header()
         open(30, file = instruction_file, position = 'append')
+
+        write(30,*)"set xlabel '"//trim(xlabel)//"'"
+        write(30,*)"set ylabel '"//trim(ylabel)//"'"
         write(30,*)"plot 'data.gnu' using 1:2 with lines"
         close(30)
 
