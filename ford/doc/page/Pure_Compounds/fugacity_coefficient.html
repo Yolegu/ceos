@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	 
+	 <meta name="description" content="A Fortran program performing thermodynamic calculations using cubic equations of state.">
+    
+    <meta name="author" content="Yohann Le Guennec" >
+    <link rel="icon" href="../../favicon.png">
+
+    <title>Fugacity coefficient calculation &ndash; Cubic Equation of State Calculator</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/pygments.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/local.css" rel="stylesheet">
+    
+    <link href="../../css/user.css" rel="stylesheet">
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../../js/jquery-2.1.3.min.js"></script>
+    <script src="../../js/svg-pan-zoom.min.js"></script>
+
+    
+    <script src="../../tipuesearch/tipuesearch_content.js"></script>
+    <link  href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    <script src="../../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../../tipuesearch/tipuesearch.js"></script>
+    
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">Cubic Equation of State Calculator </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+				
+            <li><a href='../..\page\index.html'>README</a></li>
+	    
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+		 aria-expanded="false">Contents <span class="caret"></span></a>
+	      <ul class="dropdown-menu">
+              
+            <li><a href="../../lists/files.html">Source Files</a></li>
+				
+				
+            <li><a href="../../lists/modules.html">Modules</a></li>
+				
+            
+                                
+            <li><a href="../../lists/procedures.html">Procedures</a></li>
+				
+								
+            <li><a href="../../lists/types.html">Derived Types</a></li>
+				
+				
+            <li><a href="../../program/ceos.html">Program</a></li>
+	    
+            </ul>
+            </li>
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/files.html">Source Files</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../program/ceos.html">Program</a></li>
+
+          </ul>
+        
+        <form action="../../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  <div class="row">
+    <h1>Fugacity coefficient calculation</h1>
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="well well-sm" style="min-height: 40px;">
+      <ul class="list-inline" style="margin-bottom:0px; display:inline">
+         
+         
+<!--
+        
+-->
+      </ul>
+        <ol class="breadcrumb in-well">
+      
+         <li><a href='../..\page\index.html'>README</a></li>
+      
+         <li><a href='../..\page\Pure_Compounds\index.html'>Pure compounds</a></li>
+      
+         <li class="active">Fugacity coefficient calculation</li>
+      </ol>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-9 col-md-push-3" id='text'>
+      <p>The fugacity coefficient of a pure compound \(i\) is defined as :</p>
+<p>$$
+RT \ln \phi_i = g_i^{res}\left(T,P\right) = g_i^{\phi}\left(T^{\phi} = T,P^{\phi} = P\right) - g_i^{\bullet}\left(T^{\bullet} = T,P^{\bullet} = P\right)
+$$</p>
+<p>Because pressure explicit EoS have temperature and pressure as natural variables, it is convenient to express the different terms from previous equation using such variables.</p>
+<p>$$
+RT \ln \phi_i = a_i^{\phi}\left(T^{\phi} = T, P^{\phi} = P\right) + \underbrace{\left(Pv\right)^{\phi}}_{Pv^{\phi}\left(T,P\right)} - a_i^{\bullet}\left(T^{\bullet} = T, P^{\phi} = P\right) - \underbrace{\left(Pv\right)^{\bullet}}_{RT}
+$$</p>
+<p>Because for a real fluid, a property value is independent of the variables used to express it, one can write: \(a_i\left(T^{\phi} = T,P^{\phi} = P\right) = a_i\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right)\). Moreover, one can write:</p>
+<p>$$
+a_i^{\bullet}\left(T^{\bullet} = T, P^{\bullet} = P\right) = a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} = \frac{RT}{P}\right)
+$$</p>
+<p>Finally, one can write:</p>
+<p>$$
+RT \ln \phi_i = a_i^{\phi}\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right) - a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} = \frac{RT}{P}\right)+ Pv^{\phi}\left(T,P\right) - RT
+$$</p>
+<p>At the infinite molar volume limit, the real fluid and the perfect gas are identical. Thus, one can write:</p>
+<p>$$
+a_i^{\phi}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right) = a_i^{\bullet}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right)
+$$</p>
+<p>Then, \(RT \ln \phi\) expression rewrites:</p>
+<p>$$
+RT \ln \phi_i = a_i^{\phi}\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right) - a_i^{\phi}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right) - \left[a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} = \frac{RT}{P}\right) - a_i^{\bullet}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right)\right]+ Pv^{\phi}\left(T,P\right) - RT
+$$</p>
+<p>The variations of state function \(a\) in variables \(T\) and \(v\) writes:</p>
+<p>$$
+da = -sdT - Pdv
+$$</p>
+<p>Applied to the equation of state and the ideal gas, this equation rewrites:</p>
+<p>$$
+\begin{cases}
+da^{\phi}\left(T^{\phi}, v^{\phi}\right) = s^{\phi}\left(T^{\phi}, v^{\phi}\right)dT^{\phi} - P^{\phi}\left(T^{\phi}, v^{\phi}\right)dv^{\phi} \\
+da^{\bullet}\left(T^{\bullet}, v^{\bullet}\right) = s^{\bullet}\left(T^{\bullet}, v^{\bullet}\right)dT^{\bullet} - P^{\bullet}\left(T^{\bullet}, v^{\bullet}\right)dv^{\bullet}
+\end{cases}
+$$</p>
+<p>Therefore:</p>
+<p>$$
+ a_i^{\phi}\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right) - a_i^{\phi}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right) = -\int_{+\infty}^{v^{\phi}\left(T,P\right)}P^{\phi}\left(T^{\phi} = T, v^{\phi}\right) dv^{\phi}
+$$</p>
+<p>For the perfect gas:</p>
+<p>$$
+ a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet}\left(T, P\right)\right) - a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} \rightarrow +\infty\right) = -\int_{+\infty}^{v^{\bullet}\left(T,P\right)}P^{\bullet}\left(T^{\bullet} = T, v^{\bullet}\right) dv^{\bullet} = -\int_{+\infty}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet}
+$$</p>
+<p>The previous integral can be splitted into two terms:</p>
+<p>$$
+ a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet}\left(T, P\right)\right) - a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} \rightarrow +\infty\right) = -\int_{+\infty}^{v^{\phi}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} -\int_{v^{\phi}\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet}
+$$</p>
+<p>Because the integrand is a dummy variable, one can write:</p>
+<p>$$
+RT \ln \phi_i = -\int_{+\infty}^{v\left(T,P\right)}\left[P^{\phi}\left(T^{\phi} = T, v\right) - \frac{RT}{v} \right] dv + \int_{v^{\phi}\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} + Pv^{\phi}\left(T, P\right) - RT
+$$</p>
+<p>Moreover:</p>
+<p>$$
+\int_{v^{\phi}\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} = RT \ln\left[\frac{v^{\bullet}\left(T,P\right)}{v^{\phi}\left(T,P\right)}\right] = RT \ln\left[\frac{RT}{P\times v^{\phi}\left(T,P\right)}\right] = - RT \ln z^{\phi}\left(T,P\right)
+$$</p>
+<p>Finally:</p>
+<p>$$
+\ln \phi_i = -\frac{1}{RT}\int_{+\infty}^{v\left(T,P\right)}\left[P^{\phi}\left(T^{\phi} = T, v\right) - \frac{RT}{v} \right] dv - \ln z^{\phi}\left(T,P\right) + z^{\phi}\left(T,P\right) - 1
+$$</p>
+    </div>
+    
+    <div class="col-md-3 col-md-pull-9">
+      <hr class="visible-xs visible-sm">
+        <div class="well toc">
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="title"><a href='../..\page\index.html'>README</a></li>
+          </ul>
+          <hr>
+          <ul class="nav nav-stacked nav-pills">
+            
+            <li role="presentation">
+            <a href='../..\page\Pure_Compounds\index.html'>Pure compounds</a>
+            
+            <ul class="nav nav-stacked nav-pills">
+              
+            <li role="presentation">
+            <a href='../..\page\Pure_Compounds\critical_specifications.html'>Critical Specifications</a>
+            
+            </li>
+            
+            <li role="presentation" class="disabled">
+            <a href='../..\page\Pure_Compounds\fugacity_coefficient.html'>Fugacity coefficient calculation</a>
+            
+            </li>
+            
+            </ul>
+            
+            </li>
+            
+          </ul>
+        </div>
+    </div>
+    
+  </div>
+
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a></p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+            
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> Cubic Equation of State Calculator was developed by Yohann Le Guennec</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js'],
+        'HTML-CSS': { 
+           styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: '#000000 ! important'} }
+        }
+      });
+    </script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  </body>
+</html>
