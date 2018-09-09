@@ -10,7 +10,7 @@
     <meta name="author" content="Yohann Le Guennec" >
     <link rel="icon" href="../../favicon.png">
 
-    <title>Critical Specifications &ndash; Cubic Equation of State Calculator</title>
+    <title>Fuagcity coefficient &ndash; Cubic Equation of State Calculator</title>
 
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/pygments.css" rel="stylesheet">
@@ -115,7 +115,7 @@
     <div class="container">
     
   <div class="row">
-    <h1>Critical Specifications</h1>
+    <h1>Fuagcity coefficient</h1>
     <div class="row">
     <div class="col-lg-12">
     <div class="well well-sm" style="min-height: 40px;">
@@ -130,9 +130,9 @@
       
          <li><a href='../..\page\index.html'>README</a></li>
       
-         <li><a href='../..\page\Pure_Compounds\index.html'>Pure compounds</a></li>
+         <li><a href='../..\page\Mixtures\index.html'>Mixtures</a></li>
       
-         <li class="active">Critical Specifications</li>
+         <li class="active">Fuagcity coefficient</li>
       </ol>
     </div>
     </div>
@@ -141,22 +141,32 @@
   
   <div class="row">
     <div class="col-md-9 col-md-push-3" id='text'>
-      <p>Apply the critical specifications to estimate the CEoS universal parameters \(\eta_c\), \(\Omega_a\), \(\Omega_b\) and \(z_c\) and the pure compound parameters \(a_c\), \(b_c\) and \(v_c\)</p>
-<p><strong>CEoS universal parameters</strong></p>
-<p>$$\begin{equation}
-\begin{cases}
-\eta_c = \frac{1}{\left[\left(1-r_1\right)\left(1-r_2\right)^2\right]^{1/3} + \left[\left(1-r_2\right)\left(1-r_1\right)^2\right]^{1/3} + 1} \\
-\Omega_a =\frac{\left(1-\eta_c r_1\right)\left(1-\eta_c r_2\right)\left[2-\eta_c \left(r_1 + r_2\right)\right]}{\left(1-\eta_c\right)\left[3-\eta_c \left(1+r_1+r_2\right)\right]^2} \\
-\Omega_b = \frac{\eta_c}{3-\eta_c \left(1 + r_1 + r_2\right)} \\
-z_c = \frac{1}{3 - \eta_c \left(1 + r_1 + r_2\right)}
-\end{cases}
- \end{equation}$$</p>
-<p><strong>Pure compound universal parameter</strong></p>
-<p>$$\begin{cases}
-a_c = \Omega_a \times \frac{\left(RT_c\right)^2}{P_c} \\
-b_c = \Omega_b \times \frac{RT_c}{P_c} \\
-v_c = \frac{b_c}{\eta_c}
-\end{cases}$$</p>
+      <p>By definition:</p>
+<p>\[RT \ln\phi_i\left(T,P,x\right) = \bar{g}^{\phi}_i\left(T,P,x\right) - \bar{g}^{\bullet}_i\left(T,P,x\right)\]</p>
+<p>Switching to the Helmhotz free energy:</p>
+<p>\[RT \ln\phi_i\left(T,P,x\right) = \bar{a}^{\phi}_i\left(T,P,x\right) + P\bar{v}_i^{\phi}\left(T,P,x\right) - \bar{a}^{\bullet}_i\left(T,P,x\right) - P\bar{v}_i^{\bullet}\left(T,P,x\right)\]</p>
+<p>The perfect gas law writes:</p>
+<p>\[PV^{\bullet} = nRT \Rightarrow P\bar{v}_i^{\bullet} = RT\]</p>
+<p>Moreover:</p>
+<p>\[\begin{cases}
+    \bar{a}^{\phi}_i\left(T,P,x\right) = \bar{a}^{\phi}_i\left(T,\bar{v}_i = \bar{v}_i^{\phi},x\right) \\
+    \bar{a}^{\bullet}_i\left(T,P,x\right) = \bar{a}^{\bullet}_i\left(T,\bar{v}_i = \bar{v}_i^{\bullet},x\right) \\
+    \lim_{ \bar{v}_i\rightarrow +\infty}\bar{a}^{\phi}_i\left(T, \bar{v}_i,x\right) = \lim_{ \bar{v}_i \rightarrow +\infty}\bar{a}^{\bullet}_i\left(T, \bar{v}_i,x\right)
+\end{cases}\]</p>
+<p>Thus:</p>
+<p>\[RT \ln\phi_i\left(T,P,x\right) = \left[\bar{a}^{\phi}_i\left(T,\bar{v}_i = \bar{v}_i^{\phi},x\right)-\bar{a}^{\phi}_i\left(T,\bar{v}_i \rightarrow +\infty,x\right)\right] - \left[\bar{a}^{\bullet}_i\left(T,\bar{v}_i=\bar{v}_i^{\bullet},x\right)-\bar{a}^{\bullet}_i\left(T,\bar{v}_i \rightarrow +\infty,x\right)\right]  + P\bar{v}_i^{\phi}\left(T,P,x\right) - RT\]</p>
+<p>From basic thermodynamics, one gets at constant temperature:</p>
+<p>\[d\bar{a}_i = -Pd\bar{v}_i\]</p>
+<p>Therefore:</p>
+<p>\[RT \ln\phi_i\left(T,P,x\right) = -\int^{\bar{v}_i^{\phi}}_{+\infty}P^{\phi}\left(T,v,x\right)d\bar{v}_i + \int^{\bar{v}_i^{\bullet}}_{+\infty}P^{\bullet}\left(T,v,x\right)d\bar{v}_i  + P\bar{v}_i^{\phi}\left(T,P,x\right) - RT\]</p>
+<p>Euler's theorem allows us to relate \(v\) to \(\bar{v}_i\):</p>
+<p>\[v = \sum_i x_i \bar{v}_i\]</p>
+<p>By splitting the second integral and injecting the perfect gas pressure definition, one gets: </p>
+<p>\[RT \ln\phi_i\left(T,P,x\right) = -\int^{\bar{v}_i^{\phi}}_{+\infty}\left[P^{\phi}\left(T,v,x\right)-\frac{RT}{\bar{v}_i}\right]d\bar{v}_i + \int^{\bar{v}_i^{\bullet}}_{\bar{v}_i^{\phi}}\frac{RT}{\bar{v}_i}d\bar{v}_i  + P\bar{v}_i^{\phi}\left(T,P,x\right) - RT\]</p>
+<p>The second integral can be immediately integrated:</p>
+<p>\[RT \ln\phi_i\left(T,P,x\right) = -\int^{\bar{v}_i^{\phi}}_{+\infty}\left[P^{\phi}\left(T,v,x\right)-\frac{RT}{\bar{v}_i}\right]d\bar{v}_i + RT \ln\left(\frac{\bar{v}_i^{\bullet}}{\bar{v}_i^{\phi}}\right) + P\bar{v}_i^{\phi}\left(T,P,x\right) - RT\]</p>
+<p>Writting \(\bar{z}_i^{\phi} = P\bar{v}_i^{\phi} / RT\), one gets:</p>
+<p>\[\ln\phi_i\left(T,P,x\right) = -\frac{1}{RT}\int^{\bar{v}_i^{\phi}}_{+\infty}\left[P^{\phi}\left(T,v = \sum_j{x_j \bar{v}_j},x\right)-\frac{RT}{\bar{v}_i}\right]d\bar{v}_i - \ln\left(\bar{z}_i\right) + \bar{z}_i - 1\]</p>
     </div>
     
     <div class="col-md-3 col-md-pull-9">
@@ -173,7 +183,7 @@ v_c = \frac{b_c}{\eta_c}
             
             <ul class="nav nav-stacked nav-pills">
               
-            <li role="presentation">
+            <li role="presentation" class="disabled">
             <a href='../..\page\Mixtures\fugacity_coefficient.html'>Fuagcity coefficient</a>
             
             </li>
@@ -192,7 +202,7 @@ v_c = \frac{b_c}{\eta_c}
             
             <ul class="nav nav-stacked nav-pills">
               
-            <li role="presentation" class="disabled">
+            <li role="presentation">
             <a href='../..\page\Pure_Compounds\critical_specifications.html'>Critical Specifications</a>
             
             </li>

@@ -30,10 +30,13 @@
 			<Option weight="0" />
 		</Unit>
 		<Unit filename="main.f90">
-			<Option weight="3" />
+			<Option weight="4" />
 		</Unit>
 		<Unit filename="math_mod.f90">
 			<Option weight="1" />
+		</Unit>
+		<Unit filename="mix_mod.f90">
+			<Option weight="3" />
 		</Unit>
 		<Unit filename="pure_mod.f90">
 			<Option weight="2" />

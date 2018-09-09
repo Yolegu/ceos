@@ -14,7 +14,7 @@ module pure_mod
         real(8) :: r1 !! ceos universal constant
         real(8) :: r2
         real(8) :: ac
-        real(8) :: bc
+        real(8), public :: bc
         real(8) :: zc
         real(8) :: vc
         procedure(alpha_int), pointer, private :: alpha, dalpha_dtr, d2alpha_dtr2
@@ -25,7 +25,7 @@ module pure_mod
         procedure, public :: init
         procedure, public :: show_isotherm
         procedure, public :: show_psat
-        procedure :: a, da_dt, d2a_dt2
+        procedure, public :: a, da_dt, d2a_dt2
         procedure :: p, dp_dt, dp_dv
         procedure, public :: psat
         procedure :: z
@@ -104,10 +104,14 @@ contains
             self%dalpha_dtr => dalpha_one_dtr
             self%d2alpha_dtr2 => d2alpha_one_dtr2
         elseif (alpha_id == 1) then
+            self%alpha => alpha_invsqrt
+            self%dalpha_dtr => dalpha_invsqrt_dtr
+            self%d2alpha_dtr2 => d2alpha_invsqrt_dtr2
+        elseif (alpha_id == 2) then
             if (eos_id == 1) then
                 self%m_soave = self%m_soave_rk()
             elseif (eos_id == 2) then
-                self%m_soave = self%m_soave_rk()
+                self%m_soave = self%m_soave_pr()
             else
                 stop 'No Soave function for this equation of state'
             end if
@@ -169,6 +173,35 @@ contains
         real(8) :: d2alpha_dtr2
 
         d2alpha_dtr2 = 0.d0
+
+    end function
+
+    function alpha_invsqrt(self, tr)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: tr
+        real(8) :: alpha_invsqrt
+        alpha_invsqrt = 1.d0 / sqrt(tr)
+
+    end function
+
+    function dalpha_invsqrt_dtr(self, tr) result(dalpha_dtr)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: tr
+        real(8) :: dalpha_dtr
+
+        dalpha_dtr = -0.5d0 * tr**(-3.d0 / 2.d0)
+
+    end function
+
+    function d2alpha_invsqrt_dtr2(self, tr) result(d2alpha_dtr2)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: tr
+        real(8) :: d2alpha_dtr2
+
+        d2alpha_dtr2 = 0.75d0 * tr**(-5.d0 / 2.d0)
 
     end function
 
@@ -412,7 +445,7 @@ contains
 
         k = 1
         do
-            psat = self%p(t, (1.1d0**k) * self%vc)
+            psat = self%p(t, (1.01d0**k) * self%vc)
             if (psat > 0.d0) then
                 exit
             else

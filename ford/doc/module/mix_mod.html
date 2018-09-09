@@ -10,7 +10,7 @@
     <meta name="author" content="Yohann Le Guennec" >
     <link rel="icon" href="../favicon.png">
 
-    <title>swap &ndash; Cubic Equation of State Calculator</title>
+    <title>mix_mod &ndash; Cubic Equation of State Calculator</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -116,8 +116,8 @@
     
   
   <div class="row">
-    <h1>swap
-      <small>Subroutine</small>
+    <h1>mix_mod 
+    <small>Module</small>
     
     </h1>
     
@@ -134,20 +134,18 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title=" 4.9% of total for procedures.">8 statements</a>
+	  title=" 4.0% of total for modules and submodules.">22 statements</a>
      </li> 
      
      
-    <li><i class="fa fa-code"></i><a href="../src/math_mod.f90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/mix_mod.f90"> Source File</a></li>
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
-     <li><a href='../sourcefile/math_mod.f90.html'>math_mod.f90</a></li>
+     <li><a href='../sourcefile/mix_mod.f90.html'>mix_mod.f90</a></li>
   
-     <li><a href='../module/math_mod.html'>math_mod</a></li>
-  
-     <li class="active">swap</li>
+     <li class="active">mix_mod</li>
   </ol>
 </div>
 </div>
@@ -176,6 +174,17 @@
 
 
 
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-0">Derived Types</a></h3></div>
+  <div id="types-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/mix_mod.html#type-mix_type">mix_type</a>
+      
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -190,31 +199,19 @@
   
 
 <div class="panel panel-default">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#allprocs-0">All Procedures</a></h3></div>
-  <div id="allprocs-0" class="panel-collapse collapse">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#allmods-0">All Modules</a></h3></div>
+  <div id="allmods-0" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../proc/cardan.html">cardan</a>
+      <a class="list-group-item" href="../module/constants_mod.html">constants_mod</a>
       
-      <a class="list-group-item" href="../proc/cbrt.html">cbrt</a>
+      <a class="list-group-item" href="../module/gnuplot_mod.html">gnuplot_mod</a>
       
-      <a class="list-group-item" href="../proc/linspace.html">linspace</a>
+      <a class="list-group-item" href="../module/math_mod.html">math_mod</a>
       
-      <a class="list-group-item" href="../proc/newton_after_cardan.html">newton_after_cardan</a>
+      <a class="list-group-item" href="../module/mix_mod.html">mix_mod</a>
       
-      <a class="list-group-item" href="../proc/plot.html">plot</a>
-      
-      <a class="list-group-item" href="../proc/read_options.html">read_options</a>
-      
-      <a class="list-group-item" href="../proc/set_cubic_monic.html">set_cubic_monic</a>
-      
-      <a class="list-group-item" href="../proc/solve_cubic_polynomial.html">solve_cubic_polynomial</a>
-      
-      <a class="list-group-item" href="../proc/sort_cardan_roots.html">sort_cardan_roots</a>
-      
-      <a class="list-group-item" href="../proc/swap.html">swap</a>
-      
-      <a class="list-group-item" href="../proc/test_cardan.html">test_cardan</a>
+      <a class="list-group-item" href="../module/pure_mod.html">pure_mod</a>
       
     </div>
   </div>
@@ -226,83 +223,22 @@
     </div>
     
     <div class="col-md-9" id='text'>
-    <h2>
-public subroutine swap(x, a, b)
-    
-    
-	 
-</h2>
-    
-  
-
-
-    
-
-    <h3>Arguments</h3>
-    
       
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
+    
   
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-x%7E5"></span>real(kind=8)</td>
-  <td></td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>x</strong>(:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-a%7E2"></span>integer,</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>a</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-b"></span>integer,</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>b</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
+    <ul class="list-inline">
+      <li><h4>Uses:</h4></li>
+      
+      <li><a href='../module/pure_mod.html'>pure_mod</a></li>
+      
+    </ul>
+    
+    
 
     
     
     
-     
-    <br>
+    
 
     <section class="visible-xs visible-sm hidden-md">
       
@@ -316,6 +252,17 @@ public subroutine swap(x, a, b)
 
 
 
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-1">Derived Types</a></h3></div>
+  <div id="types-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/mix_mod.html#type-mix_type">mix_type</a>
+      
+    </div>
+  </div>
+</div>
 
 
 
@@ -341,11 +288,59 @@ public subroutine swap(x, a, b)
     
     
     
+    <section>
+     <h2>Derived Types</h2>
+	 
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="type-mix_type"></span><h3>type, public :: <a href='../type/mix_type.html'>mix_type</a>
+    
+  </h3></div>
+  <div class="panel-body">
+    
+     
+     <h4>Components</h4>
+    
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th><th>Visibility</th>
+
+<th>Attributes</th><th></th><th>Name</th><th></th><th>Initial</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-pure"></span>type(<a href='../type/pure_type.html'>pure_type</a>),</td>
+  
+  <td>public,</td>
+  <td>allocatable</td><td>::</td>
+  <td><strong>pure</strong>(:)</td><td></td><td></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+     
+     
+          
+     
+  </div>
+</div>
+
+     
+    </section>
+	<br>
+    
     
     
 
-
-    
     
     
     
@@ -357,31 +352,19 @@ public subroutine swap(x, a, b)
     
 
 <div class="panel panel-default">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#allprocs-1">All Procedures</a></h3></div>
-  <div id="allprocs-1" class="panel-collapse collapse">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#allmods-1">All Modules</a></h3></div>
+  <div id="allmods-1" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../proc/cardan.html">cardan</a>
+      <a class="list-group-item" href="../module/constants_mod.html">constants_mod</a>
       
-      <a class="list-group-item" href="../proc/cbrt.html">cbrt</a>
+      <a class="list-group-item" href="../module/gnuplot_mod.html">gnuplot_mod</a>
       
-      <a class="list-group-item" href="../proc/linspace.html">linspace</a>
+      <a class="list-group-item" href="../module/math_mod.html">math_mod</a>
       
-      <a class="list-group-item" href="../proc/newton_after_cardan.html">newton_after_cardan</a>
+      <a class="list-group-item" href="../module/mix_mod.html">mix_mod</a>
       
-      <a class="list-group-item" href="../proc/plot.html">plot</a>
-      
-      <a class="list-group-item" href="../proc/read_options.html">read_options</a>
-      
-      <a class="list-group-item" href="../proc/set_cubic_monic.html">set_cubic_monic</a>
-      
-      <a class="list-group-item" href="../proc/solve_cubic_polynomial.html">solve_cubic_polynomial</a>
-      
-      <a class="list-group-item" href="../proc/sort_cardan_roots.html">sort_cardan_roots</a>
-      
-      <a class="list-group-item" href="../proc/swap.html">swap</a>
-      
-      <a class="list-group-item" href="../proc/test_cardan.html">test_cardan</a>
+      <a class="list-group-item" href="../module/pure_mod.html">pure_mod</a>
       
     </div>
   </div>
@@ -389,7 +372,7 @@ public subroutine swap(x, a, b)
 
 
   </section>
-
+  
     <hr>    
     </div> <!-- /container -->
     <footer>

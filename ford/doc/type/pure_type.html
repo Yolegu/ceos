@@ -134,7 +134,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
 	  data-placement="bottom" data-html="true"
-	  title="<p>82.4% of total for derived types.</p>Including implementation: 261 statements, 94.9% of total for derived types.">28 statements</a>
+	  title="<p>75.7% of total for derived types.</p>Including implementation: 265 statements, 94.0% of total for derived types.">28 statements</a>
      </li> 
      
      
@@ -178,6 +178,8 @@
       
       <a class="list-group-item" href="../type/pure_type.html#variable-acen">acen</a>
       
+      <a class="list-group-item" href="../type/pure_type.html#variable-bc">bc</a>
+      
     </div>
   </div>
 </div>
@@ -209,6 +211,12 @@
       
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-show_psat">show_psat</a>
       
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-d2a_dt2">d2a_dt2</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-da_dt">da_dt</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-a">a</a>
+      
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-psat">psat</a>
       
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-solve_eos">solve_eos</a>
@@ -227,6 +235,8 @@
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#alltypes-0">All Derived Types</a></h3></div>
   <div id="alltypes-0" class="panel-collapse collapse">
     <div class="list-group">
+      
+      <a class="list-group-item" href="../type/mix_type.html">mix_type</a>
       
       <a class="list-group-item" href="../type/pure_type.html">pure_type</a>
       
@@ -263,6 +273,8 @@
       
       <a class="list-group-item" href="../type/pure_type.html#variable-acen">acen</a>
       
+      <a class="list-group-item" href="../type/pure_type.html#variable-bc">bc</a>
+      
     </div>
   </div>
 </div>
@@ -293,6 +305,12 @@
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-show_isotherm">show_isotherm</a>
       
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-show_psat">show_psat</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-d2a_dt2">d2a_dt2</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-da_dt">da_dt</a>
+      
+      <a class="list-group-item" href="../type/pure_type.html#boundprocedure-a">a</a>
       
       <a class="list-group-item" href="../type/pure_type.html#boundprocedure-psat">psat</a>
       
@@ -360,6 +378,20 @@
   <td>public</td>
   <td></td><td>::</td>
   <td><strong>acen</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-bc"></span>real(kind=8),</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>bc</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -660,6 +692,264 @@ private subroutine show_psat(self)
     
 	   
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-d2a_dt2"></span><h3>procedure, public :: <strong>d2a_dt2</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function d2a_dt2(self, t)
+    
+    
+	 
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/pure_type.html'>pure_type</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=8)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>t</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=8)
+  </small></h4>
+  
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-da_dt"></span><h3>procedure, public :: <strong>da_dt</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function da_dt(self, t)
+    
+    
+	 
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/pure_type.html'>pure_type</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=8)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>t</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=8)
+  </small></h4>
+  
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-a"></span><h3>procedure, public :: <strong>a</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+         
+    
+    <h3>
+private function a(self, t)
+    
+    
+	 
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/pure_type.html'>pure_type</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=8)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>t</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=8)
+  </small></h4>
+  
+    
+
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+	   
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-psat"></span><h3>procedure, public :: <strong>psat</strong>  
     
   </h3></div>
@@ -882,6 +1172,8 @@ private subroutine solve_eos(self, t, p, v, n)
   <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#alltypes-1">All Derived Types</a></h3></div>
   <div id="alltypes-1" class="panel-collapse collapse">
     <div class="list-group">
+      
+      <a class="list-group-item" href="../type/mix_type.html">mix_type</a>
       
       <a class="list-group-item" href="../type/pure_type.html">pure_type</a>
       
