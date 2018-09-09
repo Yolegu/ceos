@@ -1,6 +1,7 @@
 program ceos
     use iso_fortran_env
     use pure_mod
+    use mix_mod
     use math_mod
     use gnuplot_mod
     implicit none
@@ -11,9 +12,9 @@ program ceos
     real(8) :: v(3), psat
     integer :: n
 
-    call read_options(eos_id, tc, pc, acen, alpha_id)
-    call pure%init(eos_id, tc, pc, acen, alpha_id)
-    call pure%show_psat()
+!    call read_options(eos_id, tc, pc, acen, alpha_id)
+!    call pure%init(eos_id, tc, pc, acen, alpha_id)
+!    call pure%show_psat()
 
 end program
 

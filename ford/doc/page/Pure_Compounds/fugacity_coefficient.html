@@ -10,7 +10,7 @@
     <meta name="author" content="Yohann Le Guennec" >
     <link rel="icon" href="../../favicon.png">
 
-    <title>Fugacity coefficient calculation &ndash; Cubic Equation of State Calculator</title>
+    <title>Simplifications behind thermodynamics &ndash; Cubic Equation of State Calculator</title>
 
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/pygments.css" rel="stylesheet">
@@ -115,7 +115,7 @@
     <div class="container">
     
   <div class="row">
-    <h1>Fugacity coefficient calculation</h1>
+    <h1>Simplifications behind thermodynamics</h1>
     <div class="row">
     <div class="col-lg-12">
     <div class="well well-sm" style="min-height: 40px;">
@@ -132,7 +132,7 @@
       
          <li><a href='../..\page\Pure_Compounds\index.html'>Pure compounds</a></li>
       
-         <li class="active">Fugacity coefficient calculation</li>
+         <li class="active">Simplifications behind thermodynamics</li>
       </ol>
     </div>
     </div>
@@ -141,13 +141,15 @@
   
   <div class="row">
     <div class="col-md-9 col-md-push-3" id='text'>
-      <p>The fugacity coefficient of a pure compound \(i\) is defined as :</p>
+      <p>If one wants to be rigorous in the way he writes thermodynamics, the derivations become very verbose. Therefore, some implicit hypothesis on the writting style of many textbooks are done. In order to make them explicit, I give here two derivations of the activity coefficient of a pure compound. The first derivation should be fully rigorous, while the second will be done in the thermodynamic way of style.</p>
+<h1>Rigorous derivation</h1>
+<p>The fugacity coefficient of a pure compound \(i\) is defined as :</p>
 <p>$$
-RT \ln \phi_i = g_i^{res}\left(T,P\right) = g_i^{\phi}\left(T^{\phi} = T,P^{\phi} = P\right) - g_i^{\bullet}\left(T^{\bullet} = T,P^{\bullet} = P\right)
+RT \ln \phi_i\left(T, P\right) = g_i^{res}\left(T,P\right) = g_i^{\phi}\left(T^{\phi} = T,P^{\phi} = P\right) - g_i^{\bullet}\left(T^{\bullet} = T,P^{\bullet} = P\right)
 $$</p>
 <p>Because pressure explicit EoS have temperature and pressure as natural variables, it is convenient to express the different terms from previous equation using such variables.</p>
 <p>$$
-RT \ln \phi_i = a_i^{\phi}\left(T^{\phi} = T, P^{\phi} = P\right) + \underbrace{\left(Pv\right)^{\phi}}_{Pv^{\phi}\left(T,P\right)} - a_i^{\bullet}\left(T^{\bullet} = T, P^{\phi} = P\right) - \underbrace{\left(Pv\right)^{\bullet}}_{RT}
+RT \ln \phi_i\left(T, P\right) = a_i^{\phi}\left(T^{\phi} = T, P^{\phi} = P\right) + \underbrace{\left(Pv\right)^{\phi}}_{Pv^{\phi}\left(T,P\right)} - a_i^{\bullet}\left(T^{\bullet} = T, P^{\phi} = P\right) - \underbrace{\left(Pv\right)^{\bullet}}_{RT}
 $$</p>
 <p>Because for a real fluid, a property value is independent of the variables used to express it, one can write: \(a_i\left(T^{\phi} = T,P^{\phi} = P\right) = a_i\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right)\). Moreover, one can write:</p>
 <p>$$
@@ -155,15 +157,15 @@ a_i^{\bullet}\left(T^{\bullet} = T, P^{\bullet} = P\right) = a_i^{\bullet}\left(
 $$</p>
 <p>Finally, one can write:</p>
 <p>$$
-RT \ln \phi_i = a_i^{\phi}\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right) - a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} = \frac{RT}{P}\right)+ Pv^{\phi}\left(T,P\right) - RT
+RT \ln \phi_i\left(T, P\right) = a_i^{\phi}\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right) - a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} = \frac{RT}{P}\right)+ Pv^{\phi}\left(T,P\right) - RT
 $$</p>
 <p>At the infinite molar volume limit, the real fluid and the perfect gas are identical. Thus, one can write:</p>
 <p>$$
-a_i^{\phi}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right) = a_i^{\bullet}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right)
+a_i^{\phi}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right) = a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} \rightarrow +\infty\right)
 $$</p>
 <p>Then, \(RT \ln \phi\) expression rewrites:</p>
 <p>$$
-RT \ln \phi_i = a_i^{\phi}\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right) - a_i^{\phi}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right) - \left[a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} = \frac{RT}{P}\right) - a_i^{\bullet}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right)\right]+ Pv^{\phi}\left(T,P\right) - RT
+RT \ln \phi_i\left(T, P\right) = a_i^{\phi}\left(T^{\phi} = T,v^{\phi}\left(T, P\right)\right) - a_i^{\phi}\left(T^{\phi} = T,v^{\phi} \rightarrow +\infty\right) - \left[a_i^{\bullet}\left(T^{\bullet} = T,v^{\bullet} = \frac{RT}{P}\right) - a_i^{\bullet}\left(T^{\phi} = T,v^{\bullet} \rightarrow +\infty\right)\right]+ Pv^{\bullet}\left(T,P\right) - RT
 $$</p>
 <p>The variations of state function \(a\) in variables \(T\) and \(v\) writes:</p>
 <p>$$
@@ -190,7 +192,7 @@ $$</p>
 $$</p>
 <p>Because the integrand is a dummy variable, one can write:</p>
 <p>$$
-RT \ln \phi_i = -\int_{+\infty}^{v\left(T,P\right)}\left[P^{\phi}\left(T^{\phi} = T, v\right) - \frac{RT}{v} \right] dv + \int_{v^{\phi}\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} + Pv^{\phi}\left(T, P\right) - RT
+RT \ln \phi_i\left(T, P\right) = -\int_{+\infty}^{v^{\phi}\left(T,P\right)}\left[P^{\phi}\left(T^{\phi} = T, v\right) - \frac{RT}{v} \right] dv + \int_{v^{\phi}\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} + Pv^{\phi}\left(T, P\right) - RT
 $$</p>
 <p>Moreover:</p>
 <p>$$
@@ -198,7 +200,85 @@ $$</p>
 $$</p>
 <p>Finally:</p>
 <p>$$
-\ln \phi_i = -\frac{1}{RT}\int_{+\infty}^{v\left(T,P\right)}\left[P^{\phi}\left(T^{\phi} = T, v\right) - \frac{RT}{v} \right] dv - \ln z^{\phi}\left(T,P\right) + z^{\phi}\left(T,P\right) - 1
+\ln \phi_i\left(T, P\right) = -\frac{1}{RT}\int_{+\infty}^{v^{\phi}\left(T,P\right)}\left[P^{\phi}\left(T^{\phi} = T, v\right) - \frac{RT}{v} \right] dv - \ln z^{\phi}\left(T,P\right) + z^{\phi}\left(T,P\right) - 1
+$$</p>
+<h1>What hypothsesis shall we do?</h1>
+<p>From the previous derivation, the following observation can be done:</p>
+<ul>
+<li>
+<p>the \(\phi\) exponent can be dropped for the real fluid state functions (\(a\), \(g\)...). From now on, a state function without exponent shall be considered as calculated using an equation of state. The \(\bullet\) exponent shall be maintained as it allows us to specify that the perfect gas state is used.</p>
+</li>
+<li>
+<p>the \(\phi\) and \(\bullet\) exponents shall be dropped for variables that are fixed by initial hypothesis to avoid writting \(T^{\phi} = T\) or \(P^{\phi} = P\). On the other hand, one should not drop the \(\phi\) and \(\bullet\) exponent for variables that are not fixed. Here, \(v^{\phi}\) and \(v^{\bullet}\) are distinct functions of temperarature and pressure and the exponents are used to recall this difference.</p>
+</li>
+<li>
+<p>the specified variables used to calculate any state function not fixed by the user shall always show the variables between parenthesis. For exemple, if the molar volume is not fixed by the user, the no one shall write \(v\) but \(v\left(T, P\right)\) because in the first case, one might possibly believe that the molar volume is fixed by the user (since we dropped the \(\phi\) exponent for the real fluid properties).</p>
+</li>
+</ul>
+<p>Doing so, it is possible to reduce the number of symbols in the thermodynamic derivations without adding any ambiguity.</p>
+<h1>Second derivation</h1>
+<p>Pressure and temperature are fixed in the following derivation. The fugacity coefficient of a pure compound \(i\) is defined as :</p>
+<p>$$
+RT \ln \phi_i\left(T, P\right) = g_i^{res}\left(T,P\right) = g_i\left(T,P\right) - g_i^{\bullet}\left(T, P\right)
+$$</p>
+<p>Because pressure explicit EoS have temperature and pressure as natural variables, it is convenient to express the different terms from previous equation using such variables.</p>
+<p>$$
+RT \ln \phi_i\left(T, P\right) = a_i\left(T, P\right) + Pv\left(T,P\right) - a_i^{\bullet}\left(T, P\right) - \underbrace{\left(Pv\right)^{\bullet}}_{RT}
+$$</p>
+<p>Because for a real fluid, a property value is independent of the variables used to express it, one can write: </p>
+<p>$$
+a_i\left(T, P\right) = a_i\left(T,v\left(T, P\right)\right)
+$$</p>
+<p>Moreover, one can write:</p>
+<p>$$
+a_i^{\bullet}\left(T, P\right) = a_i^{\bullet}\left(T,v^{\bullet} = \frac{RT}{P}\right)
+$$</p>
+<p>Finally, one can write:</p>
+<p>$$
+RT \ln \phi_i\left(T, P\right) = a_i\left(T,v\left(T, P\right)\right) - a_i^{\bullet}\left(T,v^{\bullet} = \frac{RT}{P}\right)+ Pv\left(T,P\right) - RT
+$$</p>
+<p>At the infinite molar volume limit, the real fluid and the perfect gas are identical. Thus, one can write:</p>
+<p>$$
+a_i\left(T,v \rightarrow +\infty\right) = a_i^{\bullet}\left(T,v^{\bullet} \rightarrow +\infty\right)
+$$</p>
+<p>Then, \(RT \ln \phi\) expression rewrites:</p>
+<p>$$
+RT \ln \phi_i\left(T, P\right) = a_i\left(T,v\left(T, P\right)\right) - a_i\left(T,v \rightarrow +\infty\right) - \left[a_i^{\bullet}\left(T,v^{\bullet} = \frac{RT}{P}\right) - a_i^{\bullet}\left(T,v^{\bullet} \rightarrow +\infty\right)\right]+ Pv\left(T,P\right) - RT
+$$</p>
+<p>The variations of state function \(a\) in variables \(T\) and \(v\) writes:</p>
+<p>$$
+da = -sdT - Pdv
+$$</p>
+<p>Applied to the equation of state and the ideal gas, this equation rewrites:</p>
+<p>$$
+\begin{cases}
+da\left(T, v\right) = s\left(T, v\right)dT - P\left(T, v\right)dv \\
+da^{\bullet}\left(T^{\bullet}, v^{\bullet}\right) = s^{\bullet}\left(T^{\bullet}, v^{\bullet}\right)dT^{\bullet} - P^{\bullet}\left(T^{\bullet}, v^{\bullet}\right)dv^{\bullet}
+\end{cases}
+$$</p>
+<p>Therefore:</p>
+<p>$$
+ a_i\left(T,v\left(T, P\right)\right) - a_i\left(T,v \rightarrow +\infty\right) = -\int_{+\infty}^{v\left(T,P\right)}P\left(T, v\right) dv
+$$</p>
+<p>For the perfect gas:</p>
+<p>$$
+ a_i^{\bullet}\left(T,v^{\bullet}\left(T, P\right)\right) - a_i^{\bullet}\left(T,v^{\bullet} \rightarrow +\infty\right) = -\int_{+\infty}^{v^{\bullet}\left(T,P\right)}P^{\bullet}\left(T, v^{\bullet}\right) dv^{\bullet} = -\int_{+\infty}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet}
+$$</p>
+<p>The previous integral can be splitted into two terms:</p>
+<p>$$
+ a_i^{\bullet}\left(T,v^{\bullet}\left(T, P\right)\right) - a_i^{\bullet}\left(T,v^{\bullet} \rightarrow +\infty\right) = -\int_{+\infty}^{v\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} -\int_{v\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet}
+$$</p>
+<p>Because the integrand is a dummy variable, one can write:</p>
+<p>$$
+RT \ln \phi_i\left(T, P\right) = -\int_{+\infty}^{v\left(T,P\right)}\left[P\left(T, v\right) - \frac{RT}{v} \right] dv + \int_{v\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} + Pv\left(T, P\right) - RT
+$$</p>
+<p>Moreover:</p>
+<p>$$
+\int_{v\left(T,P\right)}^{v^{\bullet}\left(T,P\right)}\frac{RT}{v^{\bullet}}dv^{\bullet} = RT \ln\left[\frac{v^{\bullet}\left(T,P\right)}{v\left(T,P\right)}\right] = RT \ln\left[\frac{RT}{P\times v\left(T,P\right)}\right] = - RT \ln z\left(T,P\right)
+$$</p>
+<p>Finally:</p>
+<p>$$
+\ln \phi_i\left(T, P\right) = -\frac{1}{RT}\int_{+\infty}^{v\left(T,P\right)}\left[P\left(T, v\right) - \frac{RT}{v} \right] dv - \ln z\left(T,P\right) + z\left(T,P\right) - 1
 $$</p>
     </div>
     
@@ -222,7 +302,7 @@ $$</p>
             </li>
             
             <li role="presentation" class="disabled">
-            <a href='../..\page\Pure_Compounds\fugacity_coefficient.html'>Fugacity coefficient calculation</a>
+            <a href='../..\page\Pure_Compounds\fugacity_coefficient.html'>Simplifications behind thermodynamics</a>
             
             </li>
             

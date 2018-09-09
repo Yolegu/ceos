@@ -14,7 +14,7 @@ module pure_mod
         real(8) :: r1 !! ceos universal constant
         real(8) :: r2
         real(8) :: ac
-        real(8) :: bc
+        real(8), public :: bc
         real(8) :: zc
         real(8) :: vc
         procedure(alpha_int), pointer, private :: alpha, dalpha_dtr, d2alpha_dtr2
@@ -25,7 +25,7 @@ module pure_mod
         procedure, public :: init
         procedure, public :: show_isotherm
         procedure, public :: show_psat
-        procedure :: a, da_dt, d2a_dt2
+        procedure, public :: a, da_dt, d2a_dt2
         procedure :: p, dp_dt, dp_dv
         procedure, public :: psat
         procedure :: z
