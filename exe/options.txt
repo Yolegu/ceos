@@ -1,10 +1,16 @@
-! Cubic equation of state: 0 = Van der Waals | 1 = Redlich-Kwong | 2 = Peng-Robinson
-1
-! Critical temperature (/K)
-160.6
-! Critical pressure (/bar)
-46.1
-! Acentric factor
-0.01
-! Alpha function: 0 = One | 1 = invsqrt | 2 = Soave
-2
+"Cubic equation of state: " "PENG-ROBINSON"
+"Number of compounds: " 2
+
+"Compound name: " "methane"
+"Critical temperature (/K): " 160.6
+"Critical pressure (/bar): " 46.1
+"Acentric factor: " 0.01
+"Alpha function: " "SOAVE 72"
+"Volume translation parameter (/cm3.mol-1): " "MAGOULAS-TASSIOS"
+
+"Compound name: " "methane"
+"Critical temperature (/K): " 160.6
+"Critical pressure (/bar): " 46.1
+"Acentric factor: " 0.01
+"Alpha function: " "SOAVE 72"
+"Volume translation parameter (/cm3.mol-1): " "CONSTANT" 0.0

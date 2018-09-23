@@ -13,13 +13,14 @@
 
 1535823971 source:c:\users\yohann\desktop\ceos\src\math_mod.f90
 
-1536474310 source:c:\users\yohann\desktop\ceos\src\pure_mod.f90
+1537724838 source:c:\users\yohann\desktop\ceos\src\pure_mod.f90
 
-1535824349 source:c:\users\yohann\desktop\ceos\src\main.f90
+1537722327 source:c:\users\yohann\desktop\ceos\src\main.f90
 
-<<<<<<< HEAD
-1536474015 source:c:\users\yohann\desktop\ceos\src\mix_mod.f90
-=======
+1535824349 D
+
+1536474339 source:c:\users\yohann\desktop\ceos\src\mix_mod.f90
+
 1536315116 source:c:\users\yohann le guennec\documents\github\ceos\src\constants_mod.f90
 
 1536315116 source:c:\users\yohann le guennec\documents\github\ceos\src\gnuplot_mod.f90
@@ -29,5 +30,8 @@
 1536316616 source:c:\users\yohann le guennec\documents\github\ceos\src\pure_mod.f90
 
 1536315116 source:c:\users\yohann le guennec\documents\github\ceos\src\main.f90
->>>>>>> master
+
+1536315116 ter
+
+1537719696 source:c:\users\yohann\desktop\ceos\src\read_file_mod.f90
 

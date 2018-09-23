@@ -1,47 +1,24 @@
 program ceos
-    use iso_fortran_env
+    use read_file_mod
     use pure_mod
     use mix_mod
     use math_mod
     use gnuplot_mod
     implicit none
 
-    type(pure_type) :: pure
-    integer :: eos_id, alpha_id
-    real(8) :: tc, pc, acen
-    real(8) :: v(3), psat
-    integer :: n
+    type(pure_type), allocatable :: pure(:)
+    type(options_type) :: options
+    integer :: i
+    real(8) :: psat
 
-!    call read_options(eos_id, tc, pc, acen, alpha_id)
-!    call pure%init(eos_id, tc, pc, acen, alpha_id)
-!    call pure%show_psat()
+    call read_options(options)
+
+    allocate(pure(options%nb_comp))
+
+    do i = 1, options%nb_comp
+        call pure(i)%init(options, i)
+    end do
+
+    call pure(1)%show_isotherm([0.95d0 * pure(1)%tc])
 
 end program
-
-subroutine read_options(eos_id, tc, pc, acen, alpha_id)
-    implicit none
-
-    integer, intent(out) :: eos_id
-    real(8), intent(out) :: tc
-    real(8), intent(out) :: pc
-    real(8), intent(out) :: acen
-    integer, intent(out) :: alpha_id
-
-    open(20, file = 'options.txt', status = 'old')
-
-    read(20,*)
-    read(20,*)eos_id
-    read(20,*)
-    read(20,*)tc
-    read(20,*)
-    read(20,*)pc
-    pc = pc * 1.d5
-    read(20,*)
-    read(20,*)acen
-    read(20,*)
-    read(20,*)alpha_id
-
-    close(20)
-
-end subroutine
-
