@@ -20,6 +20,7 @@ module pure_mod
         real(8) :: zc
         real(8) :: vc
         real(8) :: cc
+        real(8), allocatable :: alpha_param(:)
         procedure(alpha_int), pointer, private :: alpha, dalpha_dtr, d2alpha_dtr2
         procedure(ctrans_int), pointer, private :: c, dc_dtr, d2c_dtr2
         real(8) :: m_soave
@@ -29,6 +30,8 @@ module pure_mod
         procedure, public :: init
         procedure, public :: show_isotherm
         procedure, public :: show_psat
+        procedure, public :: show_c
+        procedure, public :: show_alpha
         procedure, public :: a, da_dt, d2a_dt2
         procedure :: b
         procedure, public :: dc_dt, d2c_dt2
@@ -141,20 +144,26 @@ contains
                 self%alpha => alpha_soave
                 self%dalpha_dtr => dalpha_soave_dtr
                 self%d2alpha_dtr2 => d2alpha_soave_dtr2
+            case ("TWU 91")
+                allocate(self%alpha_param(3))
+                self%alpha_param(1:3) = options%alpha_param(i, 1:3)
+                self%alpha => alpha_twu_91
+                self%dalpha_dtr => dalpha_twu_91_dtr
+                self%d2alpha_dtr2 => d2alpha_twu_91_dtr2
             case default
                 stop 'The selected alpha function does not exists'
         end select
 
-        ! Volume translation parameter
-        self%cc = options%c_param(i, 1)
-
         selectcase(options%c_id(i))
             case("CONSTANT")
+                self%cc = options%c_param(i, 1) * 1.d-6
                 self%c => c_cst
                 self%dc_dtr => dc_dtr_cst
                 self%d2c_dtr2 => d2c_dtr2_cst
             case ("MAGOULAS-TASSIOS")
                 self%c => c_magoulas_tassios
+                self%dc_dtr => dc_magoulas_tassios_dtr
+                self%d2c_dtr2 => d2c_magoulas_tassios_dtr2
             case default
                 stop 'The selected volume translation function does not exists'
         end select
@@ -330,6 +339,52 @@ contains
 
     end function
 
+    function alpha_twu_91(self, tr) result(alpha)
+
+        class(pure_type) :: self
+        real(8) :: alpha
+        real(8), intent(in) :: tr
+        real(8) :: L, M, N
+
+        L = self%alpha_param(1)
+        M = self%alpha_param(2)
+        N = self%alpha_param(3)
+        alpha = tr**(N * (M - 1.d0)) * exp(L * (1.d0 - tr**(M * N)))
+
+    end function
+
+    function dalpha_twu_91_dtr(self, tr) result(dalpha_dtr)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: tr
+        real(8) :: dalpha_dtr
+        real(8) :: L, M, N
+
+        L = self%alpha_param(1)
+        M = self%alpha_param(2)
+        N = self%alpha_param(3)
+        dalpha_dtr = -(tr ** (N * (M - 1))) * N * exp(-(L * (-1 + tr ** (M * N)))) &
+        & * (L * tr ** (M * N) * M - M + 1) / tr
+
+    end function
+
+    function d2alpha_twu_91_dtr2(self, tr) result(d2alpha_dtr2)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: tr
+        real(8) :: d2alpha_dtr2
+        real(8) :: L, M, N
+
+        L = self%alpha_param(1)
+        M = self%alpha_param(2)
+        N = self%alpha_param(3)
+        d2alpha_dtr2 = exp(-(L * (-1 + tr ** (M * N)))) * ((L ** 2 * (tr ** (M * N)) ** 2 * M ** 2 * N) &
+        & - 0.3D1 * ((M * N) - 0.2D1 / 0.3D1 * (N) - 0.1D1 / 0.3D1) &
+        & * (L) * (M) * (tr ** (M * N)) + ((M - 1) * (M * N - N - 1))) &
+        & * (tr ** (N * (M - 1))) * (N) / (tr ** 2)
+
+    end function
+
     function c_cst(self, tr) result(c)
 
         class(pure_type) :: self
@@ -406,6 +461,105 @@ contains
         zc = 0.289d0 - 0.0701d0 * self%acen - 0.0207d0 * self%acen**2
         tc = rgp * self%tc / self%pc * (zc0 - zc)
         c = t0 + (tc - t0) * exp(beta * abs(1.d0 - tr))
+
+    end function
+
+    function dc_magoulas_tassios_dtr(self, tr) result(dc_dtr)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: tr
+        real(8) :: dc_dtr
+        real(8) :: d0, d1, d2, d3, d4, k0, k1, k2, k3, k4, l0, l1
+        real(8) :: t0, beta, zc, zc0, tc
+
+        selectcase(self%eos_id)
+            case("VAN DER WAALS")
+                d0 = 0.483798d0
+                d1 = 1.643232d0
+                d2 = -0.288718d0
+                d3 = 0.066013d0
+                d4 = 0.0d0
+                k0 = 0.036722d0
+                k1 = 0.063541d0
+                k2 = -0.076221d0
+                k3 = 0.060362d0
+                k4 = -0.015772d0
+                l0 = -7.099630d0
+                l1 = -21.156900d0
+                zc0 = 0.375d0
+            case("PENG-ROBINSON")
+                d0 = 0.384401d0
+                d1 = 1.522760d0
+                d2 = -0.213808d0
+                d3 = 0.0346160
+                d4 = -0.001976d0
+                k0 = -0.014471d0
+                k1 = 0.067498d0
+                k2 = -0.084852d0
+                k3 = 0.067298d0
+                k4 = -0.017366d0
+                l0 = -10.244700d0
+                l1 = -28.631200d0
+                zc0 = 0.3074d0
+            case default
+                stop "No Magoulas-Tassios volume translation correlation for the equation of state!"
+        end select
+
+        t0 = rgp * self%tc / self%pc * (k0 + k1 * self%acen + k2 * self%acen**2 + k3 * self%acen**3 + k4 * self%acen**4)
+        beta = l0 + l1 * self%acen
+        zc = 0.289d0 - 0.0701d0 * self%acen - 0.0207d0 * self%acen**2
+        tc = rgp * self%tc / self%pc * (zc0 - zc)
+        dc_dtr = (tc - t0) * beta * abs(tr - 1.d0) / (tr - 1.d0) * exp(beta * abs(1.d0 - tr))
+
+    end function
+
+    function d2c_magoulas_tassios_dtr2(self, tr) result(d2c_dtr2)
+
+        class(pure_type) :: self
+        real(8), intent(in) :: tr
+        real(8) :: d2c_dtr2
+        real(8) :: d0, d1, d2, d3, d4, k0, k1, k2, k3, k4, l0, l1
+        real(8) :: t0, beta, zc, zc0, tc
+
+        selectcase(self%eos_id)
+            case("VAN DER WAALS")
+                d0 = 0.483798d0
+                d1 = 1.643232d0
+                d2 = -0.288718d0
+                d3 = 0.066013d0
+                d4 = 0.0d0
+                k0 = 0.036722d0
+                k1 = 0.063541d0
+                k2 = -0.076221d0
+                k3 = 0.060362d0
+                k4 = -0.015772d0
+                l0 = -7.099630d0
+                l1 = -21.156900d0
+                zc0 = 0.375d0
+            case("PENG-ROBINSON")
+                d0 = 0.384401d0
+                d1 = 1.522760d0
+                d2 = -0.213808d0
+                d3 = 0.0346160
+                d4 = -0.001976d0
+                k0 = -0.014471d0
+                k1 = 0.067498d0
+                k2 = -0.084852d0
+                k3 = 0.067298d0
+                k4 = -0.017366d0
+                l0 = -10.244700d0
+                l1 = -28.631200d0
+                zc0 = 0.3074d0
+            case default
+                stop "No Magoulas-Tassios volume translation correlation for the equation of state!"
+        end select
+
+        t0 = rgp * self%tc / self%pc * (k0 + k1 * self%acen + k2 * self%acen**2 + k3 * self%acen**3 + k4 * self%acen**4)
+        beta = l0 + l1 * self%acen
+        zc = 0.289d0 - 0.0701d0 * self%acen - 0.0207d0 * self%acen**2
+        tc = rgp * self%tc / self%pc * (zc0 - zc)
+        d2c_dtr2 = -(-tc + t0) * beta * exp((beta * abs(tr - 1))) * &
+        & ((beta) * abs((tr - 1)) / (tr - 1) ** 2)
 
     end function
 
@@ -674,6 +828,50 @@ contains
         call serie%init(t_arr, p_arr * 1.d-5)
 
         call plot([serie], "T / K", "p / bar")
+
+    end subroutine
+
+    subroutine show_c(self)
+
+        class(pure_type) :: self
+
+        integer, parameter :: n_points = 1000
+
+        real(8) :: c_arr(n_points), tr_arr(n_points)
+        integer :: i, j
+        type(serie_type) :: serie
+
+        tr_arr = linspace(0.10d0, 2.6d0, n_points)
+
+        do i = 1, n_points
+            c_arr(i) = self%c(tr_arr(i))
+        end do
+
+        call serie%init(tr_arr, c_arr * 1.d6)
+
+        call plot([serie], "T_r", "c / cm^{3}.mol^{-1}")
+
+    end subroutine
+
+    subroutine show_alpha(self)
+
+        class(pure_type) :: self
+
+        integer, parameter :: n_points = 1000
+
+        real(8) :: alpha_arr(n_points), tr_arr(n_points)
+        integer :: i, j
+        type(serie_type) :: serie
+
+        tr_arr = linspace(0.10d0, 5.0d0, n_points)
+
+        do i = 1, n_points
+            alpha_arr(i) = self%alpha(tr_arr(i))
+        end do
+
+        call serie%init(tr_arr, alpha_arr)
+
+        call plot([serie], "T_r", "{/Symbol a}")
 
     end subroutine
 

@@ -2,6 +2,6 @@
  set key off
  set xtics font 'Consolas,10'
  set ytics font 'Consolas,10'
- set xlabel 'v / [cm^3.mol^{-1}]'
- set ylabel 'p / bar'
+ set xlabel 'T_r'
+ set ylabel 'c / cm^{3}.mol^{-1}'
  plot 'data.gnu' using 1:2 with lines

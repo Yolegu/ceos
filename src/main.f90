@@ -19,6 +19,6 @@ program ceos
         call pure(i)%init(options, i)
     end do
 
-    call pure(1)%show_isotherm([0.95d0 * pure(1)%tc])
+    call pure(1)%show_c()
 
 end program

@@ -46,9 +46,10 @@ contains
             selectcase(trim(options%alpha_id(i)))
                 case("TWU 88")
                     backspace(20)
-                    read(20,*)txt, options%alpha_id(i), options%alpha_param(nb_comp, 1:2)
+                    read(20,*)txt, options%alpha_id(i), options%alpha_param(i, 1:2)
                 case("TWU 91")
-                    read(20,*)txt, options%alpha_id(i), options%alpha_param(nb_comp, 1:3)
+                    backspace(20)
+                    read(20,*)txt, options%alpha_id(i), options%alpha_param(i, 1:3)
             end select
 
             read(20,*)txt, options%c_id(i)
@@ -56,7 +57,7 @@ contains
             selectcase(trim(options%c_id(i)))
                 case("CONSTANT")
                     backspace(20)
-                    read(20,*)txt, options%c_id(i), options%c_param(nb_comp, 1)
+                    read(20,*)txt, options%c_id(i), options%c_param(i, 1)
             end select
 
         end do

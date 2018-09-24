@@ -5,7 +5,7 @@
 "Critical temperature (/K): " 160.6
 "Critical pressure (/bar): " 46.1
 "Acentric factor: " 0.01
-"Alpha function: " "SOAVE 72"
+"Alpha function: " "TWU 91" 0.02 0.99 10.0
 "Volume translation parameter (/cm3.mol-1): " "MAGOULAS-TASSIOS"
 
 "Compound name: " "methane"
@@ -13,4 +13,4 @@
 "Critical pressure (/bar): " 46.1
 "Acentric factor: " 0.01
 "Alpha function: " "SOAVE 72"
-"Volume translation parameter (/cm3.mol-1): " "CONSTANT" 0.0
+"Volume translation parameter (/cm3.mol-1): " "CONSTANT" -10.0
